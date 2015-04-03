@@ -1,0 +1,594 @@
+<link href="<%= APP_CONFIG['development']['css_url'] %>colorbox.css" media="all" rel="stylesheet" type="text/css" />
+<script src="<%= APP_CONFIG['development']['js_url'] %>js/jquery.colorbox.js" type="text/javascript"></script>
+<% @country = Country.find_all_country()
+   @state = State.find_all_state()
+ %>
+<script>
+	var elem = document.getElementById('mailing_address_div'),
+    checkBox = document.getElementById('permanent_address');
+	checkBox.checked = false;
+	checkBox.onchange = function() {
+    	elem.style.display = this.checked ? 'none' : 'block';
+	};
+checkBox.onchange();
+
+	function check_dd() {
+    if(document.getElementById('test').value == "employer_number") {
+        document.getElementById('employee_div').style.display = 'block';
+        document.getElementById('social_div').style.display = 'none';
+    } else if (document.getElementById('test').value == "social_number") {
+        document.getElementById('employee_div').style.display = 'none';
+        document.getElementById('social_div').style.display = 'block';
+    }
+    }
+    function check_dd_yes() {
+    if(document.getElementById('test_yes').value == "employer_number1") {
+        document.getElementById('employee_div1').style.display = 'block';
+        document.getElementById('social_div1').style.display = 'none';
+    } else if (document.getElementById('test_yes').value == "social_number1") {
+        document.getElementById('employee_div1').style.display = 'none';
+        document.getElementById('social_div1').style.display = 'block';
+    }
+}
+
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+    	$("#yes_div").hide();
+        $("#no_div").hide();
+        $("#employee_div").show();
+        $("#social_div").hide();
+        $("#employee_div1").show();
+        $("#social_div1").hide();
+        $('input[type="radio"]').click(function(){
+            if($(this).attr("value")=="yes"){
+                $("#no_div").hide();
+                $("#yes_div").show();
+            }
+            if($(this).attr("value")=="no"){
+                $("#yes_div").hide();
+                $("#no_div").show();
+            }
+           
+        });
+        
+
+	 $(".rr").colorbox();
+	 $(".rr").colorbox({width:"612px", height:"250px"});
+	 $(".rr1").colorbox();
+	 $(".rr1").colorbox({width:"612px", height:"500px"});
+	 $("#add_new_link").colorbox({height:"85%"});
+	 $(".inline").colorbox({inline:true});	
+	
+    });
+</script>
+
+<script>
+function validateData_yes(){
+	
+	var name_reg_exp = /^[a-z A-Z]+$/;
+	var number_reg_exp=/^[0-9]+$/;
+	var filter1 = name_reg_exp; 
+	var filter2 = name_reg_exp;
+	var filter3 = name_reg_exp;
+	var filter4 = name_reg_exp;
+	var filter5 = name_reg_exp;
+	//var filter9 = number_reg_exp;
+	//var filter9 = name_reg_exp;
+	var filter10 = name_reg_exp;
+	var filter6 = number_reg_exp;
+	var filter7 = number_reg_exp;
+	var filter8 = number_reg_exp;
+
+	// Checkbox (Yes) 
+	
+	var fullname = $("#full_name").val();
+	var fullnameerr = $("#fullnameerr");
+	
+	var country = $("#country").val();
+	var countryerr = $("#countryerr");
+	
+	var street = $("#street").val();
+	var streeterr = $("#streeterr");
+	
+	var city = $("#city").val();
+	var cityerr = $("#cityerr");
+	
+	var state = $("#state").val();
+	var stateerr = $("#stateerr");
+	
+	var zipcode = $("#zipcode").val();
+	var zipcodeerr = $("#zipcodeerr");
+	
+	var employee1 = $("#employee_1").val();
+	var employee1err = $("#employee1err");
+	var employee2 = $("#employee_2").val();
+	var employee2err = $("#employee2err");
+	
+	var federal = $("#federal").val();
+	var federalerr = $("#federal_err");
+	
+	var signature = $("#signature").val();
+	var signatureerr = $("#signatureerr");
+	
+	fullnameerr.text('');
+	countryerr.text('');
+	streeterr.text('');
+	stateerr.text('');
+	cityerr.text('');
+	zipcodeerr.text('');
+	employee1err.text('');
+	employee2err.text('');
+	federalerr.text('');
+	signatureerr.text('');
+	
+	if(federal == '') {
+				
+		federalerr.text("Select Federal Tax Identity Type");
+		federalerr.removeClass("success");
+		federalerr.addClass("error1");
+		return false;
+	}
+	else{
+	
+		if(filter1.test(fullname) && filter2.test(country) && filter3.test(street) && filter4.test(city) && filter5.test(state) && filter6.test(zipcode) && filter7.test(employee1) && filter8.test(employee2) && filter10.test(signature)){
+			return true;
+		}
+		else if(!filter1.test(fullname)) {
+				
+		fullnameerr.text("Type a valid Fullname");
+		fullnameerr.removeClass("success");
+		fullnameerr.addClass("error1");
+		return false;
+		}
+		else if(!filter2.test(country)) {
+				
+		countryerr.text("Please Select Country");
+		countryerr.removeClass("success");
+		countryerr.addClass("error1");
+		return false;
+		}
+		else if(!filter3.test(street)) {
+				
+		streeterr.text("Type a valid Street");
+		streeterr.removeClass("success");
+		streeterr.addClass("error1");
+		return false;
+		}
+		else if(!filter4.test(city)) {
+				
+		cityerr.text("Type a valid City");
+		cityerr.removeClass("success");
+		cityerr.addClass("error1");
+		return false;
+		}
+		else if(!filter5.test(state)) {
+				
+		stateerr.text("Please Select State");
+		stateerr.removeClass("success");
+		stateerr.addClass("error1");
+		return false;
+		}
+		else if(!filter6.test(zipcode)) {
+				
+		zipcodeerr.text("Type a valid Zipcode");
+		zipcodeerr.removeClass("success");
+		zipcodeerr.addClass("error1");
+		return false;
+		}
+		/*else if(!filter9.test(federal)) {
+				
+		federalerr.text("Select Federal Tax Identity Type");
+		federalerr.removeClass("success");
+		federalerr.addClass("error1");
+		return false;
+		}
+		else if(!filter7.test(employee1)) {
+				
+		employee1err.text("Type a valid Employer Identification Number");
+		employee1err.removeClass("success");
+		employee1err.addClass("error1");
+		return false;
+		}
+		else if(!filter8.test(employee2)) {
+				
+		employee2err.text("Type a valid Employer Identification Number");
+		employee2err.removeClass("success");
+		employee2err.addClass("error1");
+		return false;
+		}*/
+		
+		else if(!filter10.test(signature)) {
+				
+		signatureerr.text("Type a valid Signature");
+		signatureerr.removeClass("success");
+		signatureerr.addClass("error1");
+		return false;
+		}
+		}
+	
+}
+
+function validateData_no(){
+	
+	var name_reg_exp = /^[a-z A-Z]+$/;
+	var number_reg_exp=/^[0-9]+$/;
+	var filter1 = name_reg_exp; 
+	var filter2 = name_reg_exp; //number_reg_exp
+	var filter3 = name_reg_exp;
+	var filter4 = name_reg_exp;
+	var filter5 = name_reg_exp;
+	
+	var filter6 = number_reg_exp;
+	var filter7 = number_reg_exp;
+	var filter11 = name_reg_exp;
+	// Checkbox (No) 
+	
+	var orgname = $("#org_name").val();
+	var orgnameerr = $("#orgnameerr");
+	
+	var entity = $("#entity").val();
+	var entityerr = $("#entityerr");
+	
+	var pra_street = $("#pra_street").val();
+	var pra_street_err = $("#pra_street_err");
+	
+	var pra_city = $("#pra_city").val();
+	var pra_city_err = $("#pra_city_err");
+	
+	var pra_country = $("#pra_country").val();
+	var pra_country_err = $("#pra_country_err");
+	
+	var employee_1_tin = $("#employee_1_tin").val();
+	var employee_1_err = $("#pra_employee_1_err");
+	
+	var employee_2_tin = $("#employee_2_tin").val();
+	var employee_2_err = $("#pra_employee_2_err");
+	
+	var pra_signature = $("#pra_signature").val();
+	var pra_signature_err = $("#pra_signature_err");
+	
+	orgnameerr.text('');
+	entityerr.text('');
+	pra_street_err.text('');
+	pra_city_err.text('');
+	pra_country_err.text('');
+	employee_1_err.text('');
+	employee_2_err.text('');
+	
+	pra_signature_err.text('');
+	
+		if(filter1.test(orgname) && filter2.test(entity) && filter3.test(pra_street) && filter4.test(pra_city) && filter5.test(pra_country) && filter6.test(employee_1_tin) && filter7.test(employee_2_tin) && filter11.test(pra_signature)){
+			return true;
+		}
+		else if(!filter1.test(orgname)) {
+				
+		orgnameerr.text("Type a valid Organization Name");
+		orgnameerr.removeClass("success");
+		orgnameerr.addClass("error1");
+		return false;
+		}
+		else if(!filter2.test(entity)) {
+				
+		entityerr.text("Select Type of Entity");
+		entityerr.removeClass("success");
+		entityerr.addClass("error1");
+		return false;
+		}
+		else if(!filter3.test(pra_street)) {
+				
+		pra_street_err.text("Type a valid Street");
+		pra_street_err.removeClass("success");
+		pra_street_err.addClass("error1");
+		return false;
+		}
+		else if(!filter4.test(pra_city)) {
+				
+		pra_city_err.text("Type a valid City");
+		pra_city_err.removeClass("success");
+		pra_city_err.addClass("error1");
+		return false;
+		}
+		else if(!filter5.test(pra_country)) {
+				
+		pra_country_err.text("Type a valid Country");
+		pra_country_err.removeClass("success");
+		pra_country_err.addClass("error1");
+		return false;
+		}
+		/*else if(!filter6.test(employee_1_tin)) {
+				
+		employee_1_err.text("Type a valid Employer Identification Number");
+		employee_1_err.removeClass("success");
+		employee_1_err.addClass("error1");
+		return false;
+		}
+		else if(!filter7.test(employee_2_tin)) {
+				
+		employee_2_err.text("Type a valid Employer Identification Number");
+		employee_2_err.removeClass("success");
+		employee_2_err.addClass("error1");
+		return false;
+		}*/
+		
+		else if(!filter11.test(pra_signature)) {
+				
+		pra_signature_err.text("Type a valid Signature");
+		pra_signature_err.removeClass("success");
+		pra_signature_err.addClass("error1");
+		return false;
+		}
+		
+	
+}
+
+/* Dynamically get state from selected country */
+function set_state(val, type){
+					
+    var state_path = '/manage_account/state_selection/';
+    var country_id = val;
+    $.ajax({
+        type: "GET",
+        data: {country_id: country_id, add_type: type}, 
+        url: state_path+country_id,
+        success: function(data) {
+         
+            $("#"+type+"_state_list").html(data);
+        }
+    });
+			   
+}
+
+</script>
+
+
+<section>
+	<%= render(:partial => "manage_account/account_top" , :object => :collection) %> 
+	
+	<div class="main marTB40">
+		<div class="leftcol">
+			<div class="mtitle">
+            	<h3>Fill Out Your<span> Taxpayer Information</span></h3>
+            </div>
+            <div class="shadow marT10 pad20">
+            	
+            	<h3>Are you a U.S. Citizen or U.S. Person?<br /></h3>
+            	<br />
+            	<input type="radio" value="yes" name="textpay" id="yes"/>
+            	<span class="marT14"><strong>Yes</strong>, I am a U.S. Citizen or U.S. Person (for tax purposes)</span>
+            	<div class="clear"></div> 
+            	<input type="radio" value="no" name="textpay" id="no" />
+            	<span class="marT14"><strong>No</strong>, I am not a U.S. Citizen or U.S. Person (for tax purposes)</span>
+            </div>
+            
+            <div class="clear"></div>
+				<div id="yes_div">
+					<%= form_tag({:controller => 'text_information', :action => 'textpay'}, :id => 'text_information', :name => 'text_information') do %>
+						<div class="mtitle marT40">
+            				<h3>Form W-9</h3>
+            				<a href="<%= APP_CONFIG['development']['site_url'] %>text_information/textpay_faq_w9" class="rr">Read the FAQs</a>
+            			</div>
+            			<div class="shadow marT10 pad20">
+            				<div class="form">
+            					<label>Full Name<span class="red">*</span></label>
+            					<input type="text" id="full_name"  name="textpay[full_name]" class="textbox" value=""/>
+            					<div id="fullnameerr" style="margin-left: 190px;"></div>
+            					<div class="clear"></div>
+            					<label>Business Name</label>
+            					<input type="text" id="business_name"  name="textpay[business_name]" class="textbox" value=""/>
+            					<div class="clear"></div>
+            					<label>Country<span class="red">*</span></label>
+            					
+            					<select class="selectbox" name="textpay[country]" id="country" onchange="set_state(this.value, 'home');">
+									 <option value="">-- <%= I18n.t 'user.select_country'%> --</option>
+									 <% for ct in @country %>
+									  <option value="<%= ct[:country_name] %>" ><%= ct[:country_name] %></option>
+									 <% end %>
+								</select>
+            					<div id="countryerr" style="margin-left: 190px;"></div>
+            					<div class="clear"></div>
+            					<label>Street, apt.,suite no.<span class="red">*</span></label>
+            					<input type="text" id="street"  name="textpay[street]" class="textbox" value="" />
+            					<div id="streeterr" style="margin-left: 190px;"></div>
+            					<div class="clear"></div>
+            					<label>City<span class="red">*</span></label>
+            					<input type="text" id="city"  name="textpay[city]" class="textbox" value="" />
+            					<div id="cityerr" style="margin-left: 190px;"></div>
+            					<div class="clear"></div>
+            					<label>State<span class="red">*</span></label>
+            					            					
+            					<select class="selectbox" name="textpay[state]" id="home_state_list">
+								  <option value="">-- <%= I18n.t 'user.select_state'%> --</option>
+								  <% for st in @state %>
+								    <option value="<%= st[:state_name] %>"><%= st[:state_name] %></option>
+								  <% end %>
+							    </select>
+							  
+            					
+            					
+            					<div id="stateerr" style="margin-left: 190px;"></div>
+            					<div class="clear"></div>
+            					<label>Zip Code<span class="red">*</span></label>
+            					<input type="text" id="zipcode"  name="textpay[zip_code]" class="textbox" value=""/>
+            					<div id="zipcodeerr" style="margin-left: 190px;"></div>
+            					<div class="clear"></div>
+            					<label>Federal Tax Identity Type<span class="red">*</span></label>
+            					<select class="selectbox" name="textpay[federal_identity_type]" id="federal" value="">
+            						<option value="">-- Select One --</option>
+            						<option value="Individual/Sole Proprietor">Individual/Sole Proprietor</option>
+            						<option value="C Corporation">C Corporation</option>
+            						<option value="S Corporation">S Corporation</option>
+            						<option value="Partnership">Partnership</option>
+            						<option value="Trust/Estate">Trust/Estate</option>
+            					</select>
+            					<div id="federal_err" style="margin-left: 190px;"></div>
+            					<div class="clear"></div>
+            					<br />
+            					<p style="margin-left: 30%;">Taxpayer Identification Number (TIN)<span class="red">*</span></p>
+            					<p style="margin-left: 30%;">Enter your TIN in the appropriate box. The TIN provided must match the name given in the previous section. For individuals, this is your social security number (SSN). For other entities, it is your employer identification number (EIN).</p>
+            					<div class="clear"></div>
+            					<label></label>
+            					<select class="selectbox" name="tin_type" id="test_yes" onchange="check_dd_yes();">
+            						<option value="employer_number1">Employer Identification Number</option>
+            						<option value="social_number1">Social Security Number</option>
+            					</select>
+            					<div class="clear"></div>
+            					<div id="employee_div1">
+            					<label></label>
+            					<input type="text" id="employee_1"  name="eno1" class="textbox" style="width: 10%;" maxlength="2" />
+            					<input type="text" id="employee_2"  name="eno2" class="textbox" style="width: 20%; margin-left: 5px;" maxlength="7" />
+            					
+            					<div id="employee1err" style="margin-left: 190px;"></div>
+            					<div id="employee2err" style="margin-left: 190px;"></div>
+            					<div class="clear"></div>
+            					</div>
+            					<div id="social_div1">
+            					<label></label>
+            					<input type="text" id="social_1"  name="ssn1" class="textbox" style="width: 10%;" maxlength="2" />
+            					<input type="text" id="social_2"  name="ssn2" class="textbox" style="width: 20%;margin-left: 5px;" maxlength="3" />
+            					<input type="text" id="social_3"  name="ssn3" class="textbox" style="width: 20%;margin-left: 5px;" maxlength="4" />
+            					
+            					<div class="clear"></div>
+            					</div>
+            					<label>Your signature</label>
+            					<input type="text" id="signature"  name="textpay[signature]" class="textbox"/>
+            					<div id="signatureerr" style="margin-left: 190px;"></div>
+            					<div class="clear"></div>
+            					<br />
+            					<p>By clicking 'Submit', I certify under penalties of perjury that the number shown on this form is the correct taxpayer identification number.</p>
+            					<p><b>Note</b>: The date, time of submission and your computer’s IP address will be recorded upon submission.</p>
+            					<div class="clear"></div>
+            					<br />
+            					<input type="hidden" name="textpay[user_id]" id="user_id" value="<%= @ses_user %>" />
+            					<input type="hidden" name="textpay[text_type]" id="text_type" value="1" />
+            					<input type="submit" value="Submit" class="submit_btn" onclick="return validateData_yes();">
+            				</div>
+            				<div class="clear"></div>
+            			</div>
+					<%end%>
+				</div>
+				
+				<div id="no_div">
+					<%= form_tag({:controller => 'text_information', :action => 'textpay'}, :id => 'text_information', :name => 'text_information') do %>
+						<div class="mtitle marT40">
+            				<h3>Form W-8BEN</h3>
+            				<a href="">Read the FAQs</a>
+            			</div>
+            			<div class="shadow marT10 pad20">
+            				<div class="form">
+            					<label>Individual/ Organization Name<span class="red">*</span></label>
+            					<input type="text" id="org_name"  name="textpay[org_name]" class="textbox"/>
+            					<div id="orgnameerr" style="margin-left: 190px;"></div>
+            					<div class="clear"></div>
+            					<label>Country of Incorporation or Organization</label>
+            					<input type="text" id="organization"  name="textpay[organization]" class="textbox"/>
+            					<div class="clear"></div>
+            					<label>Type of Entity<span class="red">*</span></label>
+            					<select class="selectbox" name="textpay[type_of_entity]" id="entity">
+            						<option value="">-- Select Entity --</option>
+            						<option value="Central Bank of Issue">Central Bank of Issue</option>
+            						<option value="Complex Trust">Complex Trust</option>
+            						<option value="Estate">Estate</option>
+            						<option value="Private foundation">Private foundation</option>
+            						<option value="Disregarded Entity">Disregarded entity</option>
+            						
+            					</select>
+            					<div id="entityerr" style="margin-left: 190px;"></div>
+            					<div class="clear"></div>
+            					<br />
+            					<h2>Permanent Residence Address</h2>
+            					<div class="clear"></div>
+            					<label>Street, apt.,suite no.<span class="red">*</span></label>
+            					<input type="text" id="pra_street"  name="textpay[street]" class="textbox"/>
+            					<div id="pra_street_err" style="margin-left: 190px;"></div>
+            					<div class="clear"></div>
+            					<label>City<span class="red">*</span></label>
+            					<input type="text" id="pra_city"  name="textpay[city]" class="textbox"/>
+            					<div id="pra_city_err" style="margin-left: 190px;"></div>
+            					<div class="clear"></div>
+            					<label>Postal Code</label>
+            					<input type="text" id="postal_code"  name="textpay[postal_code]" class="textbox"/>
+            					<div class="clear"></div>
+            					<label>Country<span class="red">*</span></label>
+            					<input type="text" id="pra_country"  name="textpay[country]" class="textbox"/>
+            					<div id="pra_country_err" style="margin-left: 190px;"></div>
+            					<div class="clear"></div>
+            					<br />
+            					<h2>Mailing Address</h2>
+            					<div class="clear"></div>
+            					<label></label>
+            					<input type="checkbox" name="" value="" id="permanent_address"> Same as Permanent Residence Address
+            					<div class="clear"></div>
+            					<div id="mailing_address_div" style="display: block;">
+            					<label>Street, apt.,suite no.<span class="red">*</span></label>
+            					<input type="text" id="street"  name="textpay[mail_street]" class="textbox"/>
+            					<div class="clear"></div>
+            					<label>City<span class="red">*</span></label>
+            					<input type="text" id="city"  name="textpay[mail_city]" class="textbox"/>
+            					<div class="clear"></div>
+            					<label>Postal Code</label>
+            					<input type="text" id="postal_code"  name="textpay[mail_postal_code]" class="textbox"/>
+            					<div class="clear"></div>
+            					<label>Country<span class="red">*</span></label>
+            					<input type="text" id="country"  name="textpay[mail_country]" class="textbox"/>
+            					<div class="clear"></div>
+            					</div>
+            					<br />
+            					<h3 style="margin-left: 30%;">U.S. Taxpayer Identification Number</h3>
+            					<p style="margin-left: 30%;">Taxpayer Identification Number (TIN)<span class="red">*</span></p>
+            					<p style="margin-left: 30%;">Enter your TIN in the appropriate box. The TIN provided must match the name given in the previous section. For individuals, this is your social security number (SSN). For other entities, it is your employer identification number (EIN).</p>
+            					<div class="clear"></div>
+            					<label></label>
+            					<select class="selectbox" name="tin_type" id="test" onchange="check_dd();">
+            						<option value="employer_number">Employer Identification Number</option>
+            						<option value="social_number">Social Security Number</option>
+            					</select>
+            					<div class="clear"></div>
+            					<div id="employee_div">
+            					<label></label>
+            					<input type="text" id="employee_1_tin"  name="enp1" class="textbox" style="width: 10%;" maxlength="2"/>
+            					<input type="text" id="employee_2_tin"  name="enp2" class="textbox" style="width: 20%;margin-left: 5px;" maxlength="7"/>
+            					<div id="pra_employee_1_err" style="margin-left: 190px;"></div>
+            					<div id="pra_employee_2_err" style="margin-left: 190px;"></div>
+            					<div class="clear"></div>
+            					</div>
+            					<div id="social_div">
+            					<label></label>
+            					<input type="text" id="social_1_tin"  name="essn1" class="textbox" style="width: 10%;" maxlength="3"/>
+            					<input type="text" id="social_2_tin"  name="essn2" class="textbox" style="width: 20%;margin-left: 5px;" maxlength="2" />
+            					<input type="text" id="social_3_tin"  name="essn3" class="textbox" style="width: 20%;margin-left: 5px;" maxlength="4"/>
+            					
+            					<div id="pra_social_1_tin_err" style="margin-left: 190px;"></div>
+            					<div id="pra_social_2_tin_err" style="margin-left: 190px;"></div>
+            					<div id="pra_social_3_tin_err" style="margin-left: 190px;"></div>
+            					
+            					<div class="clear"></div>
+            					</div>
+            					<label>Your signature <span class="red">*</span></label>
+            					<input type="text" id="pra_signature"  name="textpay[signature]" class="textbox"/>
+            					<div id="pra_signature_err" style="margin-left: 190px;"></div>
+            					<div class="clear"></div>
+            					<label>Capacity in which acting</label>
+            					<input type="text" id="capacity"  name="textpay[capacity]" class="textbox"/>
+            					<div class="clear"></div>
+            					<br />
+            					<p><b>Note</b>: The date, time of submission and your computer’s IP address will be recorded upon submission.</p>
+            					<div class="clear"></div>
+            					<br />
+            					<input type="hidden" name="textpay[user_id]" id="user_id" value="<%= @ses_user %>" />
+            					<input type="hidden" name="textpay[text_type]" id="text_type" value="0" />
+            					<input type="submit" value="Submit" class="submit_btn" onclick="return validateData_no();">
+            				</div>
+            				<div class="clear"></div>
+            			</div>
+					<%end%>
+				</div>
+				
+		</div>
+		
+		<%= render(:partial => "manage_account/account_sidebar" , :object => :collection) %>
+        <div class="clear"></div>
+        
+	</div>
+</section>

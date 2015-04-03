@@ -1,0 +1,244 @@
+<script>
+	
+	function check_details(){
+	
+	
+	var card_check = /^((4\d{3})|(5[1-5]\d{2}))(-?|\040?)(\d{4}(-?|\040?)){3}|^(3[4,7]\d{2})(-?|\040?)\d{6}(-?|\040?)\d{5}/;
+	var cvv_check = /^([0-9]{3,4})$/;
+	var postal_code_check = /^[A-Z]{1,2}[0-9]{1,2} ?[0-9][A-Z]{2}$/;
+	var alphaspace = /^[a-z A-Z]+$/; //Only letters and space allowed
+	                  
+	
+	var cardnum = $('#cardnumber').val();
+	var cardnumbermsg = $('#cardnumberInfo');
+	
+	var cardname = $('#cardname').val();
+	var cardnamemsg = $('#cardnameInfo');
+	
+	var cardcvv = $('#cardcvv').val();
+	var cardcvvmsg = $('#cvvInfo');
+	
+	var billaddress = $('#address').val();
+	var billaddressmsg = $('#addressinfo');
+	
+	var billcity = $('#city').val();
+	var billcitymsg = $('#cityinfo');
+	
+	var billprovince = $('#province').val();
+	var billprovincemsg = $('#provinceinfo');
+	
+	var billpostalcode = $('#postalcode').val();
+	var billpostalcodemsg = $('#postalcodeinfo');
+	
+	cardnumbermsg.text('');
+	cardnamemsg.text('');
+	cardcvvmsg.text('');
+	
+	billaddressmsg.text('');
+	billcitymsg.text('');
+	billprovincemsg.text('');
+	billpostalcodemsg.text('');
+    
+    if (cardnum=="" ){
+    	cardnumbermsg.text("Card number can't be blank");
+		cardnumbermsg.removeClass("success");
+		cardnumbermsg.addClass("error1");
+		return false;
+    	
+    }else if(!card_check.test(cardnum)) {
+    	cardnumbermsg.text('Card number format is not valid.');
+		cardnumbermsg.removeClass("success");
+		cardnumbermsg.addClass("error1");
+		return false;
+    }
+    
+    
+    if (cardname=="" ){
+    	cardnamemsg.text("Card name can't be blank");
+		cardnamemsg.removeClass("success");
+		cardnamemsg.addClass("error1");
+		return false;
+    	
+    }else if(!alphaspace.test(cardname)) {
+    	cardnamemsg.text('Card Name format is not valid.');
+		cardnamemsg.removeClass("success");
+		cardnamemsg.addClass("error1");
+		return false;
+    }
+    
+    if (cardcvv=="" ){
+    	cardcvvmsg.text("CVV number can't be blank");
+		cardcvvmsg.removeClass("success");
+		cardcvvmsg.addClass("error1");
+		return false;
+    	
+    }else if(!cvv_check.test(cardcvv)) {
+    	cardcvvmsg.text('CVV number format is not valid.');
+		cardcvvmsg.removeClass("success");
+		cardcvvmsg.addClass("error1");
+		return false;
+    }
+    if (billaddress=="" ){
+    	billaddressmsg.text("Address can't be blank");
+		billaddressmsg.removeClass("success");
+		billaddressmsg.addClass("error1");
+		return false;
+    	
+    }
+     if (billaddress=="" ){
+    	billaddressmsg.text("Address can't be blank");
+		billaddressmsg.removeClass("success");
+		billaddressmsg.addClass("error1");
+		return false;
+    	
+    }
+    
+    if (billcity=="" ){
+    	billcitymsg.text("City can't be blank");
+		billcitymsg.removeClass("success");
+		billcitymsg.addClass("error1");
+		return false;
+    }
+    
+    if (billprovince=="" ){
+    	billprovincemsg.text("Province can't be blank");
+		billprovincemsg.removeClass("success");
+		billprovincemsg.addClass("error1");
+		return false;
+    }
+    
+    if (billpostalcode=="" ){
+    	billpostalcodemsg.text("Postalcode can't be blank");
+		billpostalcodemsg.removeClass("success");
+		billpostalcodemsg.addClass("error1");
+		return false;
+		
+    }else if(postal_code_check.test(billpostalcode)) {
+    	billpostalcodemsg.text('Postal Code format is not valid.');
+		billpostalcodemsg.removeClass("success");
+		billpostalcodemsg.addClass("error1");
+		return false;
+    }
+		
+	}
+	
+</script>
+
+
+<%= form_for :sim_transaction, :url => AuthorizeNet::SIM::Transaction::Gateway::TEST do |f| %> 
+<section>
+	<div class="main marTB40">
+		<div class="left_columm">  
+			<div class="mtitle">
+				<h3>Payment</h3>
+			</div>
+			<div class="shadow marT10 pad20">
+						<label class="email_preferences_label">Card Number <span class="red">*</span></label>
+						 <div class="email_preferences"> 
+						<%= text_field_tag :cardnumber, '', :class => 'textbox TW97p', :id=>'cardnumber' , :name => 'allied[cardnumber]' %>
+						<div id="cardnumberInfo" ></div>
+						</div>
+						<div class="clear"></div> 
+						<br />
+						<label class="email_preferences_label">Card Name <span class="red">*</span></label>
+						<div class="email_preferences">
+							<%= text_field_tag :cardname, params[:cardname], :class => 'textbox TW97p',  :name => 'allied[cardname]' %>
+							<div id="cardnameInfo" ></div>
+						</div>
+						<div class="clear"></div>
+						<br />
+						<label class="email_preferences_label">Expiry Month <span class="red">*</span></label>
+						<div class="email_preferences">
+							<select id="expirymonth" name="allied[expirymonth]" class="selectbox_date TW100">
+							<option value="01">01</option>
+							<option value="02">02</option>
+							<option value="03">04</option>
+							<option value="04">04</option>
+							<option value="05">05</option>
+							<option value="06">06</option>
+							<option value="07">07</option>
+							<option value="08">08</option>
+							<option value="09">09</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+						</select>
+						<label>&nbsp;&nbsp;Expiry Year <span class="red">*</span></label>
+						<select id="expirymonth" name="allied[expiryyear]" class="selectbox_date TW100">
+						<%	$start_year = Time.now.year
+							$end_year = $start_year + 15
+							
+							while $start_year < $end_year  do %>
+							   <option value="<%= $start_year %>"><%= $start_year%></option>
+							<%   $start_year +=1
+							end  %>
+							
+						</select> 
+						</div>
+						<div class="clear"></div> 
+						<br />
+						<label class="email_preferences_label">CVV<span class="red">*</span></label>
+						<div class="email_preferences">
+						<%= text_field_tag :cardcvv, '', :class => 'textbox TW50', :id=>'cardcvv' , :name => 'allied[cardcvv]' %>
+						<div id="cvvInfo" ></div>
+						</div>
+						<div class="clear"></div>  
+				<div class="clear"></div> 
+			</div>
+			<div class="mtitle marT40">
+				<h3>Billing Information</h3>
+			</div>
+			<div class="shadow marT10 pad20">
+				<label class="email_preferences_label">Country<span class="red">*</span></label>
+				<div class="email_preferences" style="width: 60%;">
+					<select id="ddlcountry" name="allied[expirymonth]" class="selectbox_date" style="width: 103%;">
+						<option value="UK">UK</option>
+						<option value="Canada">Canada</option>
+					</select>
+				</div>
+				<div class="clear"></div>
+				<br />
+				<label class="email_preferences_label">Address<span class="red">*</span></label>
+				<div class="email_preferences" style="width: 60%;">
+				<input type="text" id="address" name="x_exp_date" class="textbox" style="width: 103%;"/>
+				<div id="addressinfo" ></div>
+				</div>
+				<div class="clear"></div>
+				<br />
+				<label class="email_preferences_label">Address</label>
+				<div class="email_preferences" style="width: 60%;">
+				<input type="text" id="address1" name="x_exp_date" class="textbox" style="width: 103%;"/>
+				</div>
+				<div class="clear"></div>
+				<br />
+				<label class="email_preferences_label">City<span class="red">*</span></label>
+				<div class="email_preferences" style="width: 60%;">
+					<input type="text" id="city" name="x_exp_date" class="textbox" style="width: 103%;"/>
+					<div id="cityinfo" ></div>
+				</div>
+				<div class="clear"></div>
+				<br />
+				<label class="email_preferences_label">Province<span class="red">*</span></label>
+				<div class="email_preferences" style="width: 60%;">
+					<input type="text" id="province" name="x_exp_date" class="textbox" style="width: 103%;"/>
+					<div id="provinceinfo" ></div>
+				</div>
+				<div class="clear"></div>
+				<br />
+				<label class="email_preferences_label">Postal Code<span class="red">*</span></label>
+				<div class="email_preferences" style="width: 60%;">
+				<input type="text" id="postalcode" name="x_exp_date" class="textbox TW150"/>
+				<div id="postalcodeinfo" ></div>
+				
+				</div>
+				<div class="clear"></div>  
+			</div>
+			<div class="marT20" align="right">
+			<%= submit_tag "Pay", :class => 'submit_btn', :id => 'resetbtn', :onclick => "return check_details()"  %>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</section>
+<% end %>

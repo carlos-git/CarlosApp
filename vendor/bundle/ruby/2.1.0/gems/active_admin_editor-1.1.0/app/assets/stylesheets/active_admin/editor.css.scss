@@ -1,0 +1,91 @@
+@import 'active_admin/mixins';
+
+body form .html_editor {
+  .wrap {
+    width: 76%;
+    float: left;
+  }
+
+  &.uploading .spinner {
+    display: inline;
+  }
+
+  .spinner {
+    display: none;
+  }
+
+  textarea {
+    @include rounded-bottom;
+    line-height: 1.5em;
+    width: 100%;
+    height: 300px;
+    border-top: 1px solid lighten(#C9D0D6, 10%);
+
+    &:focus {
+      @include box-shadow(none);
+      border: 1px solid #C9D0D6;
+      border-top: 1px solid lighten(#C9D0D6, 10%);
+    }
+  }
+
+  .toolbar {
+    width: 100%;
+    padding: 0 10px;
+    border: 1px solid #C9D0D6;
+    border-bottom: none;
+    @include rounded-top;
+    background: #fff;
+
+    ul li a {
+      display: block;
+      padding: 5px 10px;
+      text-decoration: none;
+      color: #999;
+
+      &.wysihtml5-command-active,
+      &.wysihtml5-action-active,
+      &.wysihtml5-command-dialog-opened {
+        text-decoration: underline;
+        color: $link-color;
+      }
+    }
+
+    ul li {
+      display: inline-block;
+
+      &:first-child a {
+        padding-left: 0;
+      }
+    }
+
+    &.wysihtml5-commands-disabled ul li a[data-wysihtml5-command] {
+      display: none;
+    }
+  }
+
+  .dialog {
+    border-top: 1px solid lighten(#C9D0D6, 10%);
+    padding: 10px 20px;
+    margin: 0 -10px;
+
+    label {
+      margin-bottom: 10px;
+      width: 300px;
+
+      input {
+        display: block;
+      }
+
+      select {
+        display: block;
+      }
+    }
+
+    .action-group {
+      display: block;
+      float: right;
+      margin-top: 5px;
+      clear: both;
+    }
+  }
+}

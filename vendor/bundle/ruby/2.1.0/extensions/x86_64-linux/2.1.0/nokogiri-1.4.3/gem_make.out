@@ -1,0 +1,72 @@
+/usr/local/rvm/rubies/ruby-2.1.4/bin/ruby -r ./siteconf20141124-24966-qlku1p.rb extconf.rb --use-system-libraries
+extconf.rb:10:in `<main>': Use RbConfig instead of obsolete and deprecated Config.
+extconf.rb:10:in `<main>': Use RbConfig instead of obsolete and deprecated Config.
+extconf.rb:11:in `<main>': Use RbConfig instead of obsolete and deprecated Config.
+extconf.rb:20:in `<main>': Use RbConfig instead of obsolete and deprecated Config.
+extconf.rb:20:in `<main>': Use RbConfig instead of obsolete and deprecated Config.
+extconf.rb:22:in `<main>': Use RbConfig instead of obsolete and deprecated Config.
+extconf.rb:36:in `<main>': Use RbConfig instead of obsolete and deprecated Config.
+checking for libxml/parser.h... yes
+checking for libxslt/xslt.h... yes
+checking for libexslt/exslt.h... yes
+checking for xmlParseDoc() in -lxml2... yes
+checking for xsltParseStylesheetDoc() in -lxslt... yes
+checking for exsltFuncRegister() in -lexslt... yes
+checking for xmlFirstElementChild()... yes
+checking for xmlRelaxNGSetParserStructuredErrors()... yes
+checking for xmlRelaxNGSetParserStructuredErrors()... yes
+checking for xmlRelaxNGSetValidStructuredErrors()... yes
+checking for xmlSchemaSetValidStructuredErrors()... yes
+checking for xmlSchemaSetParserStructuredErrors()... yes
+creating Makefile
+
+make "DESTDIR=" clean
+
+make "DESTDIR="
+compiling xslt_stylesheet.c
+compiling xml_element_decl.c
+compiling xml_text.c
+compiling xml_node.c
+compiling xml_entity_reference.c
+compiling xml_sax_parser.c
+compiling xml_document.c
+compiling xml_syntax_error.c
+compiling xml_node_set.c
+compiling xml_entity_decl.c
+compiling xml_cdata.c
+compiling xml_processing_instruction.c
+compiling nokogiri.c
+compiling xml_document_fragment.c
+compiling xml_libxml2_hacks.c
+compiling xml_xpath_context.c
+compiling xml_attr.c
+compiling xml_element_content.c
+compiling html_sax_parser_context.c
+compiling html_element_description.c
+html_element_description.c: In function ‘get_description’:
+html_element_description.c:249: warning: cast discards qualifiers from pointer target type
+compiling xml_comment.c
+compiling xml_sax_push_parser.c
+compiling xml_relax_ng.c
+compiling xml_schema.c
+compiling xml_io.c
+compiling xml_reader.c
+compiling html_document.c
+compiling xml_attribute_decl.c
+compiling xml_namespace.c
+compiling xml_encoding_handler.c
+compiling html_entity_lookup.c
+compiling xml_sax_parser_context.c
+compiling xml_dtd.c
+linking shared-object nokogiri/nokogiri.so
+/usr/bin/ld: skipping incompatible /usr/lib/libpthread.so when searching for -lpthread
+/usr/bin/ld: skipping incompatible /usr/lib/librt.so when searching for -lrt
+/usr/bin/ld: skipping incompatible /usr/lib/libdl.so when searching for -ldl
+/usr/bin/ld: skipping incompatible /usr/lib/libcrypt.so when searching for -lcrypt
+/usr/bin/ld: skipping incompatible /usr/lib/libm.so when searching for -lm
+/usr/bin/ld: skipping incompatible /usr/lib/libc.so when searching for -lc
+/usr/bin/ld: skipping incompatible /usr/lib/libc.so when searching for -lc
+
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 nokogiri.so ./.gem.20141124-24966-xbjihd/nokogiri
+installing default nokogiri libraries

@@ -1,0 +1,42 @@
+<link rel="stylesheet" href="<%= APP_CONFIG['development']['css_url'] %>responsiveslides.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="<%= APP_CONFIG['development']['js_url'] %>responsiveslides.min.js"></script>
+<script>
+	 $(function () {
+     $("#slider1").responsiveSlides({
+        maxwidth: 800,
+        speed: 800
+      });
+    });
+</script>
+<div class="popup_Content">
+<%@event = Event.find(params[:id]) %>
+<% @event_gallery=EventGallery.find(:all ,:conditions => ['event_id=?',@event[:id]]) %>
+<% if @event_gallery && @event_gallery.count > 0%>
+<div class="form">
+<div id="wrapper" >
+	<ul class="rslides" id="slider1">
+	 <% 
+               ## @gallery=Gallery.find(:all,:conditions => ['active=?', 1])
+                for gallery in @event_gallery
+                        image_check = 0
+                        if(gallery[:name]!=nil)
+                                                img_full_path = check_img(gallery[:name],'event','orig')        
+                                                if img_full_path!='0' && img_full_path!='' 
+                                                          image_check = 1
+                                                          final_img_path= APP_CONFIG['development']['upload_url']+img_full_path
+                                                end
+                                        end
+                                        if image_check==0
+                                                final_img_path= APP_CONFIG['development']['upload_url']+"demo_image.png"
+                                        end     
+                        
+      %>
+ 	
+      <li><a href="#"><img src="<%= final_img_path %>" alt="<%= gallery[:title] %>" style="height:440px;width: 800px;"></a></li>
+    <%end%>
+    </ul>
+ </div>
+ </div>
+ <%end%>
+</div>

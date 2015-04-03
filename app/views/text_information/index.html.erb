@@ -1,0 +1,111 @@
+<section>
+	<%= render(:partial => "manage_account/account_top" , :object => :collection) %> 
+	
+	<div class="main marTB40">
+		<div class="leftcol">
+			<div class="mtitle">
+            	<h1>Taxpayer<span> Information</span></h1>
+            </div>
+            <% @tax = Textpay.find(:first, :conditions => ['user_id=?', session[:user_id]])%>
+            <% if @tax && @tax!='' %>
+            <!-- Display detailed information of current user -->
+            
+             <div class="shadow marT10 pad20">
+             	<% if @tax[:text_type] == 1 %>
+            	
+            	<label><%= I18n.t 'textpay.full_name' %>:</label><br/>
+            	<%= @tax[:full_name]%>
+            	 <br/><br/>
+            	<label><%= I18n.t 'textpay.street' %>:</label><br/>
+            	<%= @tax[:street]%>
+            	<br/><br/>
+            	<label><%= I18n.t 'textpay.city' %>:</label><br/>
+            	<%= @tax[:city]%>
+            	<br/><br/>
+            	<label><%= I18n.t 'textpay.state' %>:</label><br/>
+            	<%= @tax[:state]%>
+            	<br/><br/>
+            	<label><%= I18n.t 'textpay.postal' %>:</label><br/>
+            	<%= @tax[:zip_code]%>
+            	<br/><br/>
+            	<label><%= I18n.t 'textpay.federal' %>:</label><br/>
+            	<%= @tax[:federal_identity_type]%>
+            	<br/><br/>
+            	<label><%= I18n.t 'textpay.tin' %>:</label><br/>
+            	XX-XXXXXXX
+            	
+            	<!-- Not a US Citizen -->
+            	<% elsif @tax[:text_type] == 0 %>
+            	<h2>Identification of Beneficial Owner</h2>
+            	<label><%= I18n.t 'textpay.org_name' %>:</label><br/>
+            	<%= @tax[:org_name]%>
+            	 <br/><br/>
+            	<label><%= I18n.t 'textpay.org' %>:</label><br/>
+            	<%= @tax[:organization]%>
+            	<br/><br/>
+            	<label><%= I18n.t 'textpay.entity_type' %>:</label><br/>
+            	<%= @tax[:type_of_entity]%>
+            	<br/><br/>
+            	
+            	<h2>Permanent Residential Address </h2>
+            	<label><%= I18n.t 'textpay.street' %>:</label><br/>
+            	<%= @tax[:street]%>
+            	<br/><br/>
+            	<label><%= I18n.t 'textpay.city' %>:</label><br/>
+            	<%= @tax[:city]%>
+            	<br/><br/>
+            	<label><%= I18n.t 'textpay.postal' %>:</label><br/>
+            	<%= @tax[:postal_code]%>
+            	<br/><br/>
+            	<label><%= I18n.t 'textpay.country' %>:</label><br/>
+            	<%= @tax[:country]%>
+            	<br/><br/>
+            	
+            	
+            	<h2>Mailing Address </h2>
+            	<label><%= I18n.t 'textpay.street' %>:</label><br/>
+            	<% if @tax[:mail_street]!='' %> <%= @tax[:mail_street]%> <% else %><%= @tax[:street]%><% end %>
+            	<br/><br/>
+            	<label><%= I18n.t 'textpay.city' %>:</label><br/>
+				<% if @tax[:mail_city]!='' %> <%= @tax[:mail_city]%> <% else %><%= @tax[:city]%><% end %>
+            	<br/><br/>
+            	<label><%= I18n.t 'textpay.postal' %>:</label><br/>
+            	<% if @tax[:mail_postal_code]!='' %> <%= @tax[:mail_postal_code]%> <% else %><%= @tax[:postal_code]%><% end %>
+            	<br/><br/>
+            	<label><%= I18n.t 'textpay.country' %>:</label><br/>
+<% if @tax[:mail_country]!='' %> <%= @tax[:mail_country]%> <% else %><%= @tax[:country]%><% end %>
+            	<br/><br/>
+            	
+            	<h2>U.S. Taxpayer Identification Number</h2>
+            	<label><%= I18n.t 'textpay.tin' %>:</label><br/>
+            	XX-XXXXXXX
+            	
+            	<% end %>
+            	
+            	          	
+            	
+            	<br/><br/><br/>
+            <label> Need to change this information? 
+            	
+            	<a href="<%= APP_CONFIG['development']['site_url'] %>text_information/textpay"> Update Information</a></label> 
+            </div>
+            <!-- End Details -->
+            <% else %>
+            <!-- This part will be displayed if no information is submitted for current user -->
+            <div class="shadow marT10 pad20">
+            	<label><%= I18n.t 'textpay.textpay_info' %></label>
+            	
+            </div>
+            <div class="clear"></div>
+            <div class="marT20 btns">
+            	<a href="<%= APP_CONFIG['development']['site_url'] %>text_information/textpay" class="btn rr cboxElement" style="width: 46%;"> Fill out your Taxpayer Information</a>
+            </div>
+            <!-- End of no information -->
+            <% end %>
+		</div>
+		
+		<%= render(:partial => "manage_account/account_sidebar" , :object => :collection) %>
+        <div class="clear"></div>
+        
+	</div>
+</section>

@@ -1,0 +1,211 @@
+<script>
+	
+	function check_details(){
+	
+	
+	var card_check = /^((4\d{3})|(5[1-5]\d{2}))(-?|\040?)(\d{4}(-?|\040?)){3}|^(3[4,7]\d{2})(-?|\040?)\d{6}(-?|\040?)\d{5}/;
+	var cvv_check = /^([0-9]{3,4})$/;
+	                  
+	
+	var cardnum = $('#cardnumber').val();
+	var cardnumbermsg = $('#cardnumberInfo');
+	
+	var cardname = $('#cardname').val();
+	var cardnamemsg = $('#cardnameInfo');
+	
+	var cardcvv = $('#cardcvv').val();
+	var cardcvvmsg = $('#cvvInfo');
+	
+	
+	cardnumbermsg.text('');
+	cardnamemsg.text('');
+	cardcvvmsg.text('');
+    
+    if (cardnum=="" ){
+    	alert("Blank");
+    	cardnumbermsg.text("Card number can't be blank");
+		cardnumbermsg.removeClass("success");
+		cardnumbermsg.addClass("error1");
+		return false;
+    	
+    }else if(!card_check.test(cardnum)) {
+    	alert("check");
+    	cardnamemsg.text('Card number formate is not valid.');
+		cardnamemsg.removeClass("success");
+		cardnamemsg.addClass("error1");
+		return false;
+    }
+    
+    
+    if (cardname=="" ){
+    	alert("Blank");
+    	cardnumbermsg.text("Card name can't be blank");
+		cardnumbermsg.removeClass("success");
+		cardnumbermsg.addClass("error1");
+		return false;
+    	
+    }
+    
+    if (cardcvv=="" ){
+    	alert("Blank");
+    	cardcvvmsg.text("CVV number can't be blank");
+		cardcvvmsg.removeClass("success");
+		cardcvvmsg.addClass("error1");
+		return false;
+    	
+    }else if(!cvv_check.test(cardcvv)) {
+    	alert("check");
+    	cardcvvmsg.text('CVV number formate is not valid.');
+		cardcvvmsg.removeClass("success");
+		cardcvvmsg.addClass("error1");
+		return false;
+    }
+    
+        cardcvv
+    
+    
+     	
+		
+	}
+	
+</script>
+
+<section>
+       
+	<div class="main marTB60">
+		<% if flash[:notice] -%>
+      <ul class="errors">
+      	<li><%= flash[:notice] %></li>
+      </ul>
+
+	 <% end -%>
+	   
+       
+       
+    	<%= form_tag({:controller => 'tickets', :action => 'allied'}, :id => 'resetForm') do %>
+    	<div class="leftcol">
+        	<div class="mtitle">
+            	<h1> Billing <span>Details</span></h1>
+            </div>
+            <div class="shadow marT20 pad20">            	
+        	        <div class="login_signup">
+                       
+                  <!--      <div>
+                            <label>Phone</label>
+                            <%= text_field_tag :phone, params[:phone], :class => 'textbox TW97p',  :name => 'allied[phone]' %>
+                            <div id="passInfo" ></div>
+                        </div>
+                        
+                        <div>
+                            <label>Address</label>
+                            <%= text_field_tag :address, params[:address], :class => 'textbox TW97p',  :name => 'allied[address]' %>
+                            <div id="passInfo" ></div>
+                        </div>
+                        
+                        <div>
+                            <label>City</label>
+                            <%= text_field_tag :password, params[:city], :class => 'textbox TW97p',  :name => 'allied[city]' %>
+                            <div id="passInfo" ></div>
+                        </div>
+                        
+                        
+                        <div>
+                            <label>State</label>
+                            <%= text_field_tag :password, params[:password], :class => 'textbox TW97p',  :name => 'allied[password]' %>
+                            <div id="passInfo" ></div>
+                        </div>
+                        
+                        
+                        <div>
+                            <label>Country</label>
+                            <%= text_field_tag :password, params[:password], :class => 'textbox TW97p',  :name => 'allied[password]' %>
+                            <div id="passInfo" ></div>
+                        </div>
+                        
+                        <div>
+                            <label>ZipCode</label>
+                            <%= text_field_tag :password, params[:password], :class => 'textbox TW97p',  :name => 'allied[password]' %>
+                            <div id="passInfo" ></div>
+                        </div>
+                        <div>
+                            <label>Email</label>
+                            <%= text_field_tag :password, params[:password], :class => 'textbox TW97p',  :name => 'allied[password]' %>
+                            <div id="passInfo" ></div>
+                        </div> -->
+                        <div>
+                            <label>Card Number</label> &nbsp; <span class="red">*</span>
+                            <%= text_field_tag :cardnumber, '', :class => 'textbox TW97p', :id=>'cardnumber' , :name => 'allied[cardnumber]' %>
+                            <div id="cardnumberInfo" ></div>
+                        </div>
+                        <div>
+                            <label>Card Name</label> &nbsp; <span class="red">*</span>
+                            <%= text_field_tag :cardname, params[:cardname], :class => 'textbox TW97p',  :name => 'allied[cardname]' %>
+                            <div id="cardnameInfo" ></div>
+                        </div>
+                         
+                         
+                        <div class="fl marT20">										
+	                 <div class="maximum_time">
+	                 	<label>Expiry Month</label> &nbsp; <span class="red">*</span> &nbsp;
+	                    <select id="expirymonth" name="allied[expirymonth]" class="selectbox_date TW100">
+							<option value="01">01</option>
+							<option value="02">02</option>
+							<option value="03">04</option>
+							<option value="04">04</option>
+							<option value="05">05</option>
+							<option value="06">06</option>
+							<option value="07">07</option>
+							<option value="08">08</option>
+							<option value="09">09</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+						</select> 
+	                   
+	                 </div>
+	                 <div class="maximum_time">
+	                 	<label>Expiry Year</label> &nbsp; <span class="red">*</span>  &nbsp;
+	                    <select id="expirymonth" name="allied[expiryyear]" class="selectbox_date TW100">
+						<%	$start_year = Time.now.year
+							$end_year = $start_year + 15
+							
+							while $start_year < $end_year  do %>
+							   <option value="<%= $start_year %>"><%= $start_year%></option>
+							<%   $start_year +=1
+							end  %>
+							
+						</select> 	
+	                 </div>
+	                               
+	             </div>
+                        <div class="clear"></div>
+                        <div class="marT20">
+                            <label>CVV</label>  &nbsp; <span class="red">*</span> &nbsp;
+                            <%= text_field_tag :cardcvv, '', :class => 'textbox TW50', :id=>'cardcvv' , :name => 'allied[cardcvv]' %>
+                            <div id="cvvInfo" ></div>
+                        </div>
+                        
+                         <input type="hidden" name="allied[id]" value="<%= @pur[:id] %>" />
+                         <input type="hidden" name="allied[first_name]" value="<%= @pur[:first_name] %>" />
+                         <input type="hidden" name="allied[last_name]" value="<%= @pur[:last_name] %>" />
+                         <input type="hidden" name="allied[email]" value="<%= @pur[:email] %>" />
+                         
+                         <input type="hidden" name="allied[amount]" value="<%= @total %>" />
+                         <input type="hidden" name="allied[currencyid]" value="USD" />
+                       
+                        
+                         
+                       
+                        <div class="marT20 fr">
+                            <%= submit_tag "Pay", :class => 'submit_btn', :id => 'resetbtn', :onclick => "return check_details()"  %>
+                        </div>
+                        <div class="clear"></div>
+                    </div>                        
+             </div>
+        </div>
+        
+        <% end %>
+        
+        <div class="clear"></div>
+    </div>    
+</section>

@@ -1,0 +1,18 @@
+development: &local
+    site_name: Eventbrite Clone
+    site_url: https://fuegotickets.com/
+    app_url: https://fuegotickets.com/eventdemo/app/assets/images/
+    js_url: https://fuegotickets.com/eventdemo/app/assets/javascripts/
+    css_url: https://fuegotickets.com/eventdemo/app/assets/stylesheets/
+    #upload_url: https://fuegotickets.com/eventdemo/public/
+    upload_url: /
+    folder: eventdemo
+    
+production:
+  <<: *local
+
+staging:
+  <<: *local
+
+test:
+  <<: *local

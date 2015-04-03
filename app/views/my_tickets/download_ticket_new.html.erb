@@ -1,0 +1,203 @@
+<head>
+
+<style type="text/css">
+body{
+font-family:Arial, Helvetica, sans-serif;
+font-size:13px;
+color:#464646;
+margin:0px;
+padding:0px;
+line-height:22px;
+}
+
+.note{
+background-color:#393939;
+font-size:16px;
+padding:20px;
+color:#ffffff;
+text-align:center;
+width:100%;
+text-transform:uppercase;
+width:420px;
+}
+
+#header
+   {
+     width:725px;
+	 margin: 0px auto;
+	 border-spacing: 0px;
+   }
+
+.ticket{
+background-image:url(http://rails1.swapclone.com/eventdemo/public/data/thumb/other/bg.png);
+
+margin:50px auto;
+overflow:hidden;
+width:786px;
+background-repeat: no-repeat;
+padding-bottom:5px;
+}
+
+
+.title h1{
+font-family:Futura-CondensedMedium;
+text-transform:uppercase;
+color:#000000;
+font-size:30px;
+margin-top:40px;
+margin-left:10px;
+}
+
+#name{
+margin:20px 0px 20px 20px;
+border-right:1px #b2b2b2 solid;
+}
+
+table{
+border-spacing:0px;
+float:left;
+margin-left:15px;
+}
+
+#paymetdetail{
+width:600px;
+}
+
+.sticker{
+border-left:1px #b2b2b2 dashed;
+float:right;
+width:130px;
+height:372px;
+
+}
+
+.text{
+border:1px #b2b2b2 solid;
+margin-top:30px;
+margin-left:20px;
+width:400px;
+float:left;
+min-height: 375px;
+}
+
+</style>
+</head>
+
+<body>
+
+	<center><div class="note">
+    	Please print and bring this ticket with you.
+  		    </div></center>
+            
+            <div class="ticket">
+            <table>
+            
+            	
+                <tr>
+                    <td>
+                		<%
+                			image_check = 0
+                			if(@event[:event_logo]!=nil)
+             					img_full_path = check_img(@event[:event_logo],'event','thumb')	
+         					if img_full_path!='0' && img_full_path!='' 
+			  					image_check = 1
+                		%>
+                		 <% APP_CONFIG['development']['upload_url'] %>
+                        <img style="height:90px;width:120px;border-radius:5px;margin:40px 20px 20px 30px;overflow:hidden;float:left;" src="http://rails1.swapclone.com/eventdemo/public/data/orig/event/<%= @event[:event_logo] %>" alt="<%= @event[:event_title] %>" />
+                      <%
+                   			end
+						end
+							if image_check==0
+                   		%>
+                   		<img src="<%= APP_CONFIG['development']['app_url'] %>demo_image.png" alt="<%= @event[:event_title] %>" />
+                   		<%
+							end		
+         				%>
+                   		
+                    
+                       <p style="margin-top:45px;"> 
+                       <span style="font-family:Futura-CondensedMedium;text-transform:uppercase;color:#000000;font-size:20px;font-weight:bold; margin-bottom: 10px; display:block;"><%= @event[:event_title]%></span>
+                        <em style="font-size:13px; display:block;"><%= @event[:event_start_date_time].strftime("%A, %b %d %Y") %></em>
+                        <%= @event[:street_address] %></p>
+                    
+                    </td>
+                </tr>
+                <tr>
+                <td>
+                <table id="paymetdetail" style="clear:both;" cellpadding="0" cellspacing="0">
+                	<tr>
+                	<td style="margin:30px 0px 30px 30px;border-right:1px #b2b2b2 solid;border-bottom:1px #b2b2b2 solid;border-top:1px #b2b2b2 solid;" colspan="2">
+                	
+                    <p style="margin-left:25px;margin-right:180px;">Purchaser Name:    <br />
+                    <span style="text-transform:uppercase;font-size:20px;font-weight:bold;font-family:Futura-CondensedMedium;"><%= @my_ticket[:first_name] +" "+ @my_ticket[:last_name]%></span></p>
+                   
+                    </td>
+                    <td style="border-bottom:1px #b2b2b2 solid;border-top:1px #b2b2b2 solid;padding: 15px 0px 10px 90px; text-align:right;">
+                  
+                    <p style="font-size:15px;">Purchase Date: <br /><strong><%= @my_ticket[:created_at].strftime("%b %d ,%Y") %></strong></p>
+                    
+                    </td>
+              
+                </tr>
+                <table id="paymetdetail" style="clear:both;" cellpadding="0" cellspacing="0">
+                <tr>
+                	<td style="border-bottom:1px #b2b2b2 solid;border-right:1px #b2b2b2 solid;">
+                    	<p style="margin-left:25px;">Order Number: <strong><%= @my_ticket[:id]%></strong></p>
+                    </td>
+                    <td style="border-bottom:1px #b2b2b2 solid;padding:24px;border-right:1px #b2b2b2 solid;text-align:center;">
+                    	<p style="font-size:15px;margin:0px 10px;">Price: <strong><%= set_event_currency(@my_ticket[:event_id], @my_ticket[:total])%></strong></p>
+                    </td>
+                    <td style="border-bottom:1px #b2b2b2 solid;text-align:right;">
+                    <p>Ticket Type<br />
+                    <span style="text-transform:uppercase;font-size:15px;font-weight:bold;font-family:Futura-CondensedMedium;">
+                    Multiple Tickets(<%= @my_ticket[:ticket_qty]%>)</span>
+                    </p>
+                    </td>
+               
+                </tr>
+                </table>
+                <tr>
+                <td style="text-align:center;margin-bottom:50px;" colspan="3">
+                	<p style="margin:26px;margin-top:60px;">Payment Status: <strong>Paid via Paypal</strong></p>
+                </td>
+                </tr>
+                
+                </table>
+                </td>
+                </tr>
+               
+                
+                
+            
+            </table>
+            
+              <%  @full_path = "public/data/barcode/barcode_"+@my_ticket[:barcode_random]+"_"+@my_ticket[:id].to_s+".png"  %>
+                   
+            
+             <div class="sticker">
+<div style=" -webkit-transition: -webkit-transform 3s ease-in; -webkit-transform: rotate(-90deg);-moz-transform: rotate(1deg); margin-top: 235px; ">
+       <img style="/* margin:0px 0px 20px 25px; *//* width: 105%; */height: 61px;width: 333px;" src="http://rails1.swapclone.com/eventdemo/<%= @full_path %>">
+<p style="margin-left: 80px;margin-top: 4;"><%= @my_ticket[:barcode_random] %></p>
+
+    </div>
+  
+            </div>
+            
+            </div>
+            
+            <div class="text">
+            <p style="margin:10px 20px;text-align: justify;"><strong>Ticket Disclaimer/Policy info:</strong><br />
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.<br /><br />
+
+In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus.<br /><br />
+
+Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt.
+            </p>
+            </div>
+            <div> 
+            <img style="float: left;margin-right: 248px;margin-top: 31px;margin-left: 30px;"  src="http://rails1.swapclone.com/eventdemo/public/data/thumb/other/code.jpg" />
+            <img style="float:right;margin-right:250px;margin-top: 254px;margin-bottom:30px;" src="http://rails1.swapclone.com/eventdemo/public/data/thumb/other/logo.png" />
+            </div>
+
+</body>
+</html>

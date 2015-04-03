@@ -1,0 +1,90 @@
+<!-- Code to check if any tickets are sold -->
+<% if params[:id] && params[:id]!='' 
+	 @event = Event.find(params[:id])
+	   @tkts = Ticket.find(:all, :conditions => ['event_id=?', params[:id]])
+	   @flag = 0
+	   for t in @tkts
+	   	if t[:used] > 0
+	   		@flag = 1 # To notify that at least 1 ticket has been sold.
+	   	end
+	   end	
+	else
+		@flag = 0
+	
+ end %>
+<!-- end code -->
+
+<script type="text/javascript">
+	function validate_select_currency(){
+		var id = $('#currency_list').val();		
+		$('#currency_code_id').val(id);
+		
+		//extra
+		var cid = $('#currency_code_id').val();
+		var path = '/events/set_onpage_currency/';
+      
+        $.ajax({
+            type: "GET",
+            data: {currency: cid}, 
+            url: path+cid,
+            success: function(data) {
+                
+                var split_curr = data.split(' '); 					 // get return currency with code i.e. $ USD 
+                var new_curr = split_curr[0] ;  
+                
+                $("#currency_sym").html(data);     					 // set global currency for page
+                global_currency = new_curr;	
+				$( ".change_curr" ).each(function() {  				 // get all elements of change_curr to change currency 
+				 
+				  var temp = $(this).text().split(' ');  			 // Split to get price 
+				  var new_price = temp[1];              			 // save price
+				  var final_price = new_curr +' '+new_price;   		 // concate new currency with price  
+				  $(this).text(final_price);                    	 // set values to that element
+				  
+				  
+				});
+										 // set new currency as global variable to display on create event
+				$( ".place" ).each(function() {  				 // get all elements of change_curr to change currency 
+				   $(this).attr("placeholder", new_curr);				  
+				});
+				
+            }
+        });
+        
+      //end extra
+		
+		
+		parent.jQuery.colorbox.close();
+		return false;
+	}
+</script>
+
+
+<div class="popup_Content">
+	       
+	<div class="pad10">
+	<h1 align="center"> Choose Currency </h1>
+	<p>Which currency will you use? </p>
+<select name="currency_list" id="currency_list" class="selectbox mar0 TW97p" >
+	<% if params[:id] && params[:id]!='' && @flag == 1 %>	     
+		<% @curr = CurrencyCode.find(:first, :conditions => ["id=?", @event[:currency_code_id]]) %>
+		<option value="<%= @curr[:id] %>" selected="selected" ><%= @curr[:currency_name] %> <%= @curr[:currency_code] %><%= @curr[:currency_symbol] %></option>
+		
+	<% else %>
+
+	<% for cur in @currency %>		
+		<option value="<%= cur[:id] %>" ><%= cur[:currency_name] %> <%= cur[:currency_code] %> <%= cur[:currency_symbol] %></option>		
+	<% end%>	
+		
+	<% end %> <!-- end if -->
+</select>
+<% if params[:id] && params[:id]!='' && @flag == 1%>
+	 <%= I18n.t 'create_event.currency_note' %> 
+<% end %>	
+	<div class="marT10" align="right">
+	<% if @flag == 0%><a href="javascript:" onclick="return validate_select_currency();" class="btn" >Save</a><%end%>
+	<a href="javascript:" onclick="parent.jQuery.colorbox.close();" class="btn black_bg" ><%= I18n.t 'manage_account_close_account.close' %> </a>
+	</div>
+</div> 
+				  
+</div>
